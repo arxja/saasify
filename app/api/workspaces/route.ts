@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth/server";
 import { AppError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
 import { createWorkspace } from "@/services/workspace.service";
+import { CreateWorkspaceInput } from "@/lib/validations/workspace";
 
 function isAppErrorLike(error: unknown): error is AppError & {
   statusCode: number;
@@ -27,7 +28,29 @@ export async function POST(request: NextRequest) {
       throw AppError.unauthorized();
     }
 
-    const body = await request.json();
+    let body: CreateWorkspaceInput;
+
+    try {
+      body = (await request.json()) as CreateWorkspaceInput;
+    } catch {
+      return NextResponse.json(
+        {
+          error: "Invalid JSON body.",
+          code: "BAD_REQUEST",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (!body.companyName || !body.subdomain || !body.billingEmail) {
+      return NextResponse.json(
+        {
+          error: "Missing required fields.",
+          code: "BAD_REQUEST",
+        },
+        { status: 400 },
+      );
+    }
 
     const tenant = await createWorkspace(user.id, body);
 
