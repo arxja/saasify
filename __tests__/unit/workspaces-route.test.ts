@@ -213,6 +213,6 @@ describe("POST /api/workspaces", () => {
 
     const response = await POST(request);
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
   });
 });
