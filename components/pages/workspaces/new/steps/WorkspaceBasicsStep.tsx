@@ -1,6 +1,7 @@
 "use client";
 
 import type { UseFormReturn } from "react-hook-form";
+import { getWorkspaceBaseDomain } from "../workspace-domain";
 import type { CreateWorkspaceFormData } from "../types";
 
 interface Props {
@@ -59,7 +60,9 @@ export default function WorkspaceBasicsStep({ form }: Props) {
               className="min-w-0 flex-1 rounded-xl px-4 py-3 outline-none"
             />
 
-            <span className="px-4 text-sm text-slate-500">.blu.test</span>
+            <span className="px-4 text-sm text-slate-500">
+              .{getWorkspaceBaseDomain()}
+            </span>
           </div>
 
           {errors.subdomain && (
