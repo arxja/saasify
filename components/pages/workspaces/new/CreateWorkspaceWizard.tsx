@@ -14,6 +14,19 @@ import WorkspaceReviewStep from "./steps/WorkspaceReviewStep";
 
 const TOTAL_STEPS = 3;
 
+const getStepFieldNames = (
+  currentStep: number,
+): (keyof CreateWorkspaceFormData)[] => {
+  switch (currentStep) {
+    case 1:
+      return ["companyName", "subdomain"];
+    case 2:
+      return ["billingEmail"];
+    default:
+      return [];
+  }
+};
+
 export default function CreateWorkspaceWizard() {
   const [step, setStep] = useState(1);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -33,13 +46,12 @@ export default function CreateWorkspaceWizard() {
   const nextStep = async () => {
     setSubmitError(null);
 
-    const valid = await form.trigger();
-    
+    const valid = await form.trigger(getStepFieldNames(step));
+
     if (!valid) {
       return;
     }
-    
-    console.log("form triggered")
+
     setStep((current) => Math.min(current + 1, TOTAL_STEPS));
   };
 

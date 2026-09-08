@@ -8,12 +8,12 @@ import { TestimonialsSection } from "@/components/pages/home";
 export default function Home() {
   return (
     <div>
-      <HeroSection />
+      {/* <HeroSection />
       <LogosSection />
       <FeaturesSection />
       <StatsSection />
       <TestimonialsSection />
-      <CtaSection />
+      <CtaSection /> */}
     </div>
   );
 }
