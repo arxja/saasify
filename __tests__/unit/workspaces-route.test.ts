@@ -202,6 +202,19 @@ describe("POST /api/workspaces", () => {
     });
   });
 
+  it("returns 400 when the JSON body is null", async () => {
+    const response = await POST(createRequest(null));
+
+    expect(response.status).toBe(400);
+
+    const body = await response.json();
+
+    expect(body).toEqual({
+      error: "Missing required fields.",
+      code: "BAD_REQUEST",
+    });
+  });
+
   it("handles malformed JSON", async () => {
     const request = new Request("http://app.blu.test:3000/api/workspaces", {
       method: "POST",
