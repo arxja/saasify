@@ -8,7 +8,7 @@
 
 > [!WARNING]
 >This project is **not yet production‑ready**, but the core infrastructure is taking shape.  
-> **Status: Under Active Development**
+> **Status: Development deferred**
 
 We’re building a complete data‑to‑action pipeline that combines:
 - Analytics (mixpanel‑like)  
