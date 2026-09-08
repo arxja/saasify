@@ -2,6 +2,9 @@
 
 import type { UseFormReturn } from "react-hook-form";
 
+import { createWorkspaceSchema } from "@/lib/validations/workspace";
+
+import { getWorkspaceBaseDomain } from "../workspace-domain";
 import type { CreateWorkspaceFormData } from "../types";
 
 interface Props {
@@ -9,7 +12,7 @@ interface Props {
 }
 
 export default function WorkspaceReviewStep({ form }: Props) {
-  const values = form.getValues();
+  const values = createWorkspaceSchema.parse(form.getValues());
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -29,7 +32,9 @@ export default function WorkspaceReviewStep({ form }: Props) {
         <div className="flex justify-between py-4">
           <dt className="text-sm text-slate-500">Workspace URL</dt>
 
-          <dd className="text-sm font-medium">{values.subdomain}.blu.test</dd>
+          <dd className="text-sm font-medium">
+            {values.subdomain}.{getWorkspaceBaseDomain()}
+          </dd>
         </div>
 
         <div className="flex justify-between py-4">
