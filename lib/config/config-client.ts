@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const clientSchema = z.object({
   NEXT_PUBLIC_APP_NAME: z.string().default("My App"),
+  NEXT_PUBLIC_APP_BASE_DOMAIN: z.string().default("localhost:3000"),
   NEXT_PUBLIC_API_URL: z.string().default("/api"),
   NEXT_PUBLIC_ENABLE_ANALYTICS: z
     .string()

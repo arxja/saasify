@@ -38,7 +38,7 @@ export const USER_DROPDOWN_ITEMS: UserDropdownItems[] = [
     items: [
       {
         name: "new",
-        link: "/"
+        link: "/workspaces/new"
       }
     ]
   }
