@@ -8,6 +8,7 @@ import { createWorkspaceSchema } from "@/lib/validations/workspace";
 
 import type { CreateWorkspaceFormData } from "./types";
 
+import { getWorkspaceBaseDomain } from "./workspace-domain";
 import WorkspaceBasicsStep from "./steps/WorkspaceBasicsStep";
 import WorkspaceConfigStep from "./steps/WorkspaceConfigStep";
 import WorkspaceReviewStep from "./steps/WorkspaceReviewStep";
@@ -86,10 +87,9 @@ export default function CreateWorkspaceWizard() {
        * Navigate to the newly created tenant.
        *
        * We deliberately derive the URL
-       * from the current environment.
+       * from the configured application base domain.
        */
-      window.location.href =
-        `${window.location.protocol}//` + `${subdomain}.${getBaseDomain()}`;
+      window.location.href = `${window.location.protocol}//${subdomain}.${getWorkspaceBaseDomain()}`;
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Failed to create workspace.",
@@ -98,19 +98,6 @@ export default function CreateWorkspaceWizard() {
       setIsSubmitting(false);
     }
   });
-
-  function getBaseDomain(): string {
-    /*
-     * This is only a temporary UI helper.
-     *
-     * Prefer exposing the canonical application
-     * URL/domain through your client config instead
-     * of hardcoding it here.
-     */
-    return window.location.hostname.includes(".blu.test")
-      ? "blu.test:3000"
-      : "blu.so";
-  }
 
   return (
     <div className="mx-auto w-full max-w-2xl">
