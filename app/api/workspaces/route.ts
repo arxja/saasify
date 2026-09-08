@@ -42,7 +42,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!body.companyName || !body.subdomain || !body.billingEmail) {
+    if (
+      !body ||
+      typeof body !== "object" ||
+      Array.isArray(body) ||
+      !body.companyName ||
+      !body.subdomain ||
+      !body.billingEmail
+    ) {
       return NextResponse.json(
         {
           error: "Missing required fields.",
